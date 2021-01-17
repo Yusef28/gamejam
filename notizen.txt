@@ -1,0 +1,84 @@
+mit pyinstaller installiert
+
+und die haupt python module als __main__.py genannt
+
+erste ich habe die main.spe file mit pyinstaller __main__.py 
+erstellt.
+
+Danach habe ich die main.spec geoffnet und
+
+added_files = [
+	( 'src/README.txt', '.' ),
+	( '/images', 'images' ),
+	( '/sfx', 'sfx' ),
+	( '/music', 'music' )
+	]
+
+
+hinzufugt (aber ich habe vergessen add_files in die Analysis 
+hinzuzufugen
+
+dann habe ich zu die "build" order bewegt und zu die "__main__"
+ordner. Und versucht die __main__.exe zum laufen zu bringen. 
+Es gibt mir die fehler "python37.dll nicht gefundnen"
+
+Mit hinweis von https://stackoverflow.com/questions/38674400/missing-dll-files-when-using-pyinstaller
+ich habe es gefunden
+
+(eigenlich ich hatte nach es gesucht und es war in die ordner von 
+dieses spiele. Es war nach mit spec erstellt.
+
+
+Also ich habe diese ausprobiert:
+"(venv) C:\Users\Yusef\Desktop\Spiele\Spielepyinstaller --path C:/Users/Yusef/Desktop/Spiele/Spiele/dist/__main__ __main__.py -w "
+
+Aber kriegt ich dann dieses fehler:
+" [WinError 5] Zugriff verweigert: 'C:\\Users\\Yusef\\Desktop\\Spiele\\Spiele\\dist\\__main__'"
+
+jetzt habe ich "added_files", zu datas hinzufugt:
+...
+datas=[added_files], 
+...
+das executable ist in dist und es gibt die fehler
+"pyi_rth_pkgres" nicht gefunden" also
+
+hiddenimports=["pkg_resources.py2_warn"]
+
+und dann wieder pythoninstller
+
+dasselb fehler
+aber was uch wirklich nutzen sollte war 
+pyinstaller __main__.spec
+
+wie hier von elton fernando angeweist: 
+https://stackoverflow.com/questions/37815371/pyinstaller-failed-to-execute-script-pyi-rth-pkgres-and-missing-packages
+
+machmal verweigert diese befehl pyinstaller __main__.spec
+mit winerror 5
+aber ich nutze dasselb befehl wieder und es funktioniert
+
+dasselb fehler aber jete wieder mit die befehl 
+" ...... -w"
+
+
+ok F Das!!
+
+cx_Freeze!
+erstelle ein setup.py:
+https://pythonprogramming.net/converting-pygame-executable-cx_freeze/
+
+und cli:
+py setup.py build
+
+Dann zip die exe.win32 ordner und hochgeladen!
+
+Fur alle datei in eine ordner zbs:
+"include_files":["images/"] 
+
+
+
+
+
+
+
+
